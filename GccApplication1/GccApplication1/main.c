@@ -5,14 +5,22 @@
  * Author : andreurn
  */ 
 
+#define F_CPU 4915200
+
 #include <avr/io.h>
+#include <util/delay.h>
 
+#include "ATmega162_programdriver.h"
 
-int main(void)
-{
+int main(void){
     /* Replace with your application code */
-    while (1) 
-    {
+	DDRA = 0;
+	USART_Init(MYUBRR);
+    while (1){
+	
+	USART_Transmit('H');
+	PORTA ^= (1<<PA0);
+	//USART_Flush();
+	_delay_ms(1000);
     }
 }
-
