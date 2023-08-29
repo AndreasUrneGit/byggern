@@ -3,29 +3,29 @@ GccApplication1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  00000122  2**0
+  0 .data         00000000  00800100  00800100  0000012c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000000ce  00000000  00000000  00000054  2**1
+  1 .text         000000d8  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  00000122  2**0
+  2 .comment      00000030  00000000  00000000  0000012c  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000154  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000015c  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000058  00000000  00000000  00000190  2**0
+  4 .debug_aranges 00000058  00000000  00000000  00000198  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000820  00000000  00000000  000001e8  2**0
+  5 .debug_info   0000083d  00000000  00000000  000001f0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000072f  00000000  00000000  00000a08  2**0
+  6 .debug_abbrev 0000073e  00000000  00000000  00000a2d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000003b5  00000000  00000000  00001137  2**0
+  7 .debug_line   000003bf  00000000  00000000  0000116b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000078  00000000  00000000  000014ec  2**2
+  8 .debug_frame  00000078  00000000  00000000  0000152c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000003ee  00000000  00000000  00001564  2**0
+  9 .debug_str    000003ee  00000000  00000000  000015a4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000026  00000000  00000000  00001952  2**0
+ 10 .debug_loc    00000039  00000000  00000000  00001992  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000038  00000000  00000000  00001978  2**0
+ 11 .debug_ranges 00000038  00000000  00000000  000019cb  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -67,8 +67,8 @@ Disassembly of section .text:
   76:	d4 e0       	ldi	r29, 0x04	; 4
   78:	de bf       	out	0x3e, r29	; 62
   7a:	cd bf       	out	0x3d, r28	; 61
-  7c:	0e 94 4f 00 	call	0x9e	; 0x9e <main>
-  80:	0c 94 65 00 	jmp	0xca	; 0xca <_exit>
+  7c:	0e 94 53 00 	call	0xa6	; 0xa6 <main>
+  80:	0c 94 6a 00 	jmp	0xd4	; 0xd4 <_exit>
 
 00000084 <__bad_interrupt>:
   84:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -106,47 +106,62 @@ void USART_Transmit(unsigned char data){
   9a:	8c b9       	out	0x0c, r24	; 12
   9c:	08 95       	ret
 
-0000009e <main>:
+0000009e <USART_Receive>:
+}
+unsigned char USART_Receive( void ){
+	// Wait for data to be received
+	while (!(UCSR0A & (1 << RXC0)))
+  9e:	5f 9b       	sbis	0x0b, 7	; 11
+  a0:	fe cf       	rjmp	.-4      	; 0x9e <USART_Receive>
+		;
+	// Get and return received data from buffer
+	return UDR0;
+  a2:	8c b1       	in	r24, 0x0c	; 12
+}
+  a4:	08 95       	ret
+
+000000a6 <main>:
 
 #include "ATmega162_programdriver.h"
 
 int main(void){
     /* Replace with your application code */
 	DDRA = 0;
-  9e:	1a ba       	out	0x1a, r1	; 26
+  a6:	1a ba       	out	0x1a, r1	; 26
 	USART_Init(MYUBRR);
-  a0:	8f e1       	ldi	r24, 0x1F	; 31
-  a2:	90 e0       	ldi	r25, 0x00	; 0
-  a4:	0e 94 44 00 	call	0x88	; 0x88 <USART_Init>
+  a8:	8f e1       	ldi	r24, 0x1F	; 31
+  aa:	90 e0       	ldi	r25, 0x00	; 0
+  ac:	0e 94 44 00 	call	0x88	; 0x88 <USART_Init>
+	unsigned char ch;
     while (1){
-	
-	USART_Transmit('H');
-  a8:	88 e4       	ldi	r24, 0x48	; 72
-  aa:	0e 94 4b 00 	call	0x96	; 0x96 <USART_Transmit>
+	ch = USART_Receive();
+  b0:	0e 94 4f 00 	call	0x9e	; 0x9e <USART_Receive>
+	USART_Transmit(ch);
+  b4:	0e 94 4b 00 	call	0x96	; 0x96 <USART_Transmit>
 	PORTA ^= (1<<PA0);
-  ae:	9b b3       	in	r25, 0x1b	; 27
-  b0:	81 e0       	ldi	r24, 0x01	; 1
-  b2:	89 27       	eor	r24, r25
-  b4:	8b bb       	out	0x1b, r24	; 27
+  b8:	9b b3       	in	r25, 0x1b	; 27
+  ba:	81 e0       	ldi	r24, 0x01	; 1
+  bc:	89 27       	eor	r24, r25
+  be:	8b bb       	out	0x1b, r24	; 27
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  b6:	2f ef       	ldi	r18, 0xFF	; 255
-  b8:	8f ef       	ldi	r24, 0xFF	; 255
-  ba:	9e e0       	ldi	r25, 0x0E	; 14
-  bc:	21 50       	subi	r18, 0x01	; 1
-  be:	80 40       	sbci	r24, 0x00	; 0
-  c0:	90 40       	sbci	r25, 0x00	; 0
-  c2:	e1 f7       	brne	.-8      	; 0xbc <main+0x1e>
-  c4:	00 c0       	rjmp	.+0      	; 0xc6 <main+0x28>
-  c6:	00 00       	nop
-  c8:	ef cf       	rjmp	.-34     	; 0xa8 <main+0xa>
+  c0:	2f ef       	ldi	r18, 0xFF	; 255
+  c2:	8f ef       	ldi	r24, 0xFF	; 255
+  c4:	9e e0       	ldi	r25, 0x0E	; 14
+  c6:	21 50       	subi	r18, 0x01	; 1
+  c8:	80 40       	sbci	r24, 0x00	; 0
+  ca:	90 40       	sbci	r25, 0x00	; 0
+  cc:	e1 f7       	brne	.-8      	; 0xc6 <main+0x20>
+  ce:	00 c0       	rjmp	.+0      	; 0xd0 <main+0x2a>
+  d0:	00 00       	nop
+  d2:	ee cf       	rjmp	.-36     	; 0xb0 <main+0xa>
 
-000000ca <_exit>:
-  ca:	f8 94       	cli
+000000d4 <_exit>:
+  d4:	f8 94       	cli
 
-000000cc <__stop_program>:
-  cc:	ff cf       	rjmp	.-2      	; 0xcc <__stop_program>
+000000d6 <__stop_program>:
+  d6:	ff cf       	rjmp	.-2      	; 0xd6 <__stop_program>

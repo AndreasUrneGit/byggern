@@ -16,9 +16,10 @@ int main(void){
     /* Replace with your application code */
 	DDRA = 0;
 	USART_Init(MYUBRR);
+	unsigned char ch;
     while (1){
-	
-	USART_Transmit('H');
+	ch = USART_Receive();
+	USART_Transmit(ch);
 	PORTA ^= (1<<PA0);
 	//USART_Flush();
 	_delay_ms(1000);
