@@ -6,30 +6,29 @@
  */ 
 #include "ATmega162_programdriver.h"
 
-void USART_Init(unsigned int ubrr){
+void USART_init(unsigned int ubrr){
 	// Set baud rate
 	UBRR0H = (unsigned char)(ubrr>>8);
 	UBRR0L = (unsigned char)ubrr;
 	//Enable receiver and transmitter
 	UCSR0B = (1<<RXEN0)|(1<<TXEN0);
 	// Set frame format: 8data, 2stop bit
-	UCSR0C = (1<<URSEL0)|(3<<UCSZ00);
+	UCSR0C = (1<<URSEL0)| (1 << USBS0) |(3<<UCSZ00);
+	
+	fdevopen(USART_transmit, USART_receive);
 }
 
-void USART_Transmit(unsigned char data){
+void USART_transmit(unsigned char data){
 	// wait for empty transmit buffer
-	while ( !(UCSR0A & (1<<UDRE0) ) );
+
+	loop_until_bit_is_set(UCSR0A, UDRE0);
 	//put data into buffer, sends the data
 	UDR0 = data;
 }
-unsigned char USART_Receive( void ){
+unsigned char USART_receive( void ){
 	// Wait for data to be received
-	while (!(UCSR0A & (1 << RXC0)))
-		;
+
+	loop_until_bit_is_set(UCSR0A, RXC0);
 	// Get and return received data from buffer
 	return UDR0;
-}
-void USART_Flush( void ){
-	unsigned char dummy;
-	while ( UCSR0A & (1<< RXC0)) dummy = UDRE0;
 }

@@ -11,17 +11,17 @@
 #include <util/delay.h>
 
 #include "ATmega162_programdriver.h"
+#include "sram.h"
 
 int main(void){
     /* Replace with your application code */
-	DDRA = 0;
-	USART_Init(MYUBRR);
-	unsigned char ch;
+	USART_init(MYUBRR);
+	SRAM_init();
+	SRAM_test();
+
     while (1){
-	ch = USART_Receive();
-	USART_Transmit(ch);
-	PORTA ^= (1<<PA0);
-	//USART_Flush();
+	
 	_delay_ms(1000);
+	
     }
 }
