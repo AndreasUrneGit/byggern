@@ -12,12 +12,15 @@
 
 #include "ATmega162_programdriver.h"
 #include "sram.h"
+#include "ADC.h"
 
 int main(void){
     /* Replace with your application code */
 	USART_init(MYUBRR);
 	SRAM_init();
+	ADC_init();
 	SRAM_test();
+	
 
     while (1){
 	
