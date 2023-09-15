@@ -135,6 +135,12 @@
     <Compile Include="bit_macros.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="interrupt.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="interrupt.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="sram.c">
       <SubType>compile</SubType>
     </Compile>

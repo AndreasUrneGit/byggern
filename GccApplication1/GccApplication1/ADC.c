@@ -24,3 +24,23 @@ void ADC_init(){
 	*/
 	
 }
+
+void ADC_test(){
+	volatile char* adc_addr = (char*)0x1400;
+	uint8_t data;
+	
+	adc_addr[0] = 0;
+	
+	//while((PORTE & 1)){
+		//
+	//}
+	
+	data = adc_addr[0];
+	printf("%8d\r\t", data);
+	data = adc_addr[0];
+	printf("%8d\t", data);
+	data = adc_addr[0];
+	printf("%8d\t", data);
+	data = adc_addr[0];
+	printf("%8d\n\n", data);
+}

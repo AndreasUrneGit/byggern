@@ -6,6 +6,8 @@ ADC.c
 
 ATmega162_programdriver.c
 
+interrupt.c
+
 sram.c
 
 main.c

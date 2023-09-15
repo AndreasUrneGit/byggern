@@ -13,9 +13,12 @@
 #include "ATmega162_programdriver.h"
 #include "sram.h"
 #include "ADC.h"
+#include "interrupt.h"
 
 int main(void){
-    /* Replace with your application code */
+    // enable global interrupt flags
+	//interrupt_init();
+	/* Replace with your application code */
 	USART_init(MYUBRR);
 	SRAM_init();
 	ADC_init();
@@ -24,7 +27,8 @@ int main(void){
 
     while (1){
 	
-	_delay_ms(1000);
+	ADC_test();
+	_delay_ms(100);
 	
     }
 }

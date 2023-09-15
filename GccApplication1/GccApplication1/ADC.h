@@ -13,6 +13,7 @@
 #include <util/delay.h>
 #include "bit_macros.h"
 void ADC_init();
+void ADC_test();
 
 
 
