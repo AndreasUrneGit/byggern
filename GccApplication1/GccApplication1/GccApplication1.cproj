@@ -135,10 +135,19 @@
     <Compile Include="bit_macros.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="fonts.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="interrupt.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="interrupt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OLED.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OLED.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="sram.c">

@@ -21,6 +21,6 @@ void interrupt_init(){
 	
 }
 
-ISR(INT2_vect)[{
+ISR(INT2_vect){
 
 }
