@@ -17,6 +17,7 @@
 #include "OLED.h"
 #include "fonts.h"
 
+
 int main(void){
     // enable global interrupt flags
 	//interrupt_init();
@@ -29,30 +30,16 @@ int main(void){
 
 	oled_reset();
 	
-	uint8_t i = 0;
+	oled_print("Jeg er stor!", 8);
+	oled_goto_line(1);
+	oled_goto_column(0);
+	oled_print("Jeg er passe stor!", 5);
+	oled_goto_line(2);
+	oled_goto_column(0);
+	oled_print("Jeg er liten :(", 4);
 	
 	while(1){
-		oled_goto_column(i++);
-		oled_goto_line(i / 20);
-		oled_putchar('V');
-		oled_putchar('i');
-		oled_putchar(' ');
-		oled_putchar('e');
-		oled_putchar('r');
-		oled_putchar(' ');
-		oled_putchar('f');
-		oled_putchar('e');
-		oled_putchar('r');
-		oled_putchar('d');
-		oled_putchar('i');
-		oled_putchar('g');
-		oled_putchar('e');
-		
-		if(i == 128){
-			i = 0;
-		}
-		
-		_delay_ms(100);
-		oled_reset();
+		ADC_test();
+		_delay_ms(1000);
 	}
 }

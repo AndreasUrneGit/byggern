@@ -11,11 +11,15 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+#include <avr/pgmspace.h>
+
+#include "fonts.h"
+
 
 #define oled_cmd  (*(volatile char*) 0x1000)
 #define oled_data (*(volatile char*) 0x1200)
 
-extern const uint8_t font8[95][8];
+//globale variabler på page, column, current av begge
 
 void oled_init_program(void);
 void oled_write_command(uint8_t command);
@@ -27,7 +31,8 @@ void oled_pos(uint8_t line, uint8_t column);
 void oled_clear_line(uint8_t line);
 // ikke implementerte funksjoner som burde skrives ut:
 void oled_home();
-void oled_putchar(char ch);
+void oled_putchar(const char ch, uint8_t font_size);
+void oled_print(const char* message, uint8_t font_size);
 
 
 void oled_screen_on();

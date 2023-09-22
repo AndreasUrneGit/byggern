@@ -12,8 +12,10 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "bit_macros.h"
+
 void ADC_init();
 void ADC_test();
+void ADC_sample(uint8_t* joystick_y, uint8_t* slider_right, uint8_t* slider_left, uint8_t* joystick_x);
 
 
 

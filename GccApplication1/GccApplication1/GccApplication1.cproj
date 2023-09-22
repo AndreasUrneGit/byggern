@@ -135,6 +135,9 @@
     <Compile Include="bit_macros.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="fonts.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="fonts.h">
       <SubType>compile</SubType>
     </Compile>

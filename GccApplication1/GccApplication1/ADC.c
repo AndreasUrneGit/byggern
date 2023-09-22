@@ -15,17 +15,28 @@ void ADC_init(){
 	
 }
 
+void ADC_sample(uint8_t* joystick_y, uint8_t* slider_right, uint8_t* slider_left, uint8_t* joystick_x){
+	volatile char* adc_addr = (char*)0x1400;
+	*joystick_y = adc_addr[0];
+	*slider_right = adc_addr[0];
+	*slider_left = adc_addr[0];
+	*joystick_x = adc_addr[0];
+	
+	adc_addr[0] = 0;
+}
+
+
 void ADC_test(){
 	volatile char* adc_addr = (char*)0x1400;
 	uint8_t data;
 	
 	
 	data = adc_addr[0];
-	printf("%8d\r\t", data);
+	printf("%8d\r", data);
 	data = adc_addr[0];
-	printf("%8d\t", data);
+	printf("%8d", data);
 	data = adc_addr[0];
-	printf("%8d\t", data);
+	printf("%8d", data);
 	data = adc_addr[0];
 	printf("%8d\n\n", data);
 	

@@ -80,8 +80,32 @@ void oled_clear_line(uint8_t line){
 	}
 }
 
-void oled_putchar(char ch){
-	for(uint8_t column = 0; column < 8; column++){
-		oled_write_data(font8[ch - 32][column]);
+void oled_putchar(const char ch, uint8_t font_size){
+
+	if(font_size == 4){
+		for(uint8_t column = 0; column < font_size; column++){
+			oled_write_data(pgm_read_byte(&(font4[ch - 32][column])));
+		}
+	}
+	else if(font_size == 5){
+		for(uint8_t column = 0; column < font_size; column++){
+			oled_write_data(pgm_read_byte(&(font5[ch - 32][column])));
+		}
+	}
+	else{
+		for(uint8_t column = 0; column < font_size; column++){
+			oled_write_data(pgm_read_byte(&(font8[ch - 32][column])));
+		}
+	}
+}
+
+void oled_print(const char* message, uint8_t font_size){
+	//implementajon for /n /r /t
+	size_t size = strlen(message);
+	
+	printf("\n\r%s", message);
+	
+	for(uint8_t index = 0; index < size; index++){
+		oled_putchar(message[index], font_size);
 	}
 }

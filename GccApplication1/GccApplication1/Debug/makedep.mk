@@ -6,6 +6,8 @@ ADC.c
 
 ATmega162_programdriver.c
 
+fonts.c
+
 interrupt.c
 
 OLED.c
