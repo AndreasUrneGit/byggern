@@ -16,30 +16,29 @@
 #include "interrupt.h"
 #include "OLED.h"
 #include "fonts.h"
+#include "joystick.h"
+#include "menu.h"
 
 
 int main(void){
     // enable global interrupt flags
 	//interrupt_init();
-	/* Replace with your application code */
-	USART_init(MYUBRR);
 	SRAM_init();
 	ADC_init();
 	oled_init_program();
 	SRAM_test();
-
+	menu_init();
+	
 	oled_reset();
 	
-	oled_print("Jeg er stor!", 8);
-	oled_goto_line(1);
-	oled_goto_column(0);
-	oled_print("Jeg er passe stor!", 5);
-	oled_goto_line(2);
-	oled_goto_column(0);
-	oled_print("Jeg er liten :(", 4);
-	
+	menu_print();
 	while(1){
-		ADC_test();
-		_delay_ms(1000);
+		ADC_sample(&joystick_x, &joystick_y, &slider_right, &slider_left);
+		if(joystick_handle()){
+			menu_navigate(joystick_position, glob_current_menu);
+			menu_print();
+		}
+		
+		_delay_ms(1);
 	}
 }

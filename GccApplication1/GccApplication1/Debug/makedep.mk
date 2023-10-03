@@ -10,6 +10,10 @@ fonts.c
 
 interrupt.c
 
+joystick.c
+
+menu.c
+
 OLED.c
 
 sram.c

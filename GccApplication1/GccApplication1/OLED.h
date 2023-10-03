@@ -15,11 +15,14 @@
 
 #include "fonts.h"
 
-
 #define oled_cmd  (*(volatile char*) 0x1000)
 #define oled_data (*(volatile char*) 0x1200)
 
-//globale variabler på page, column, current av begge
+#define MAX_COLUMN 127
+#define MAX_LINE 7
+
+uint8_t glob_current_column;
+uint8_t glob_current_line;
 
 void oled_init_program(void);
 void oled_write_command(uint8_t command);
@@ -29,6 +32,7 @@ void oled_goto_line(uint8_t line);
 void oled_goto_column(uint8_t column);
 void oled_pos(uint8_t line, uint8_t column);
 void oled_clear_line(uint8_t line);
+void oled_increment_page_index();
 // ikke implementerte funksjoner som burde skrives ut:
 void oled_home();
 void oled_putchar(const char ch, uint8_t font_size);

@@ -44,6 +44,8 @@ void oled_init_program()
 void oled_goto_line(uint8_t line){
 	uint8_t address = 0xB0 + line;
 	oled_write_command(address);
+	
+	glob_current_line = line;
 }
 
 void oled_screen_on(){
@@ -55,6 +57,8 @@ void oled_screen_off(){
 void oled_goto_column(uint8_t column){
 	oled_write_command(column & (0b1111));
 	oled_write_command(0x10 + (column >> 4));
+	
+	glob_current_column = column;
 }
 void oled_clear_screen(){
 	for(int line = 0; line < 8; line++){
@@ -66,6 +70,7 @@ void oled_reset(){
 	oled_clear_screen();
 	oled_goto_line(0);
 	oled_goto_column(0);
+
 }
 
 void oled_pos(uint8_t line, uint8_t column){
@@ -81,26 +86,45 @@ void oled_clear_line(uint8_t line){
 }
 
 void oled_putchar(const char ch, uint8_t font_size){
-
-	if(font_size == 4){
-		for(uint8_t column = 0; column < font_size; column++){
-			oled_write_data(pgm_read_byte(&(font4[ch - 32][column])));
+	switch (ch){
+		case '\n':
+			oled_increment_page_index();
+			break;
+		case '\r':
+			oled_goto_column(0);
+			break;
+		case '\t':
+			for (int i = 0; i < 4; i++){
+				oled_putchar(' ', font_size);
+			}
+			break;
+	
+	default:
+		if(glob_current_column + font_size > 127){
+			oled_increment_page_index();
+			oled_goto_column(0);
 		}
-	}
-	else if(font_size == 5){
-		for(uint8_t column = 0; column < font_size; column++){
-			oled_write_data(pgm_read_byte(&(font5[ch - 32][column])));
+		if(font_size == 4){
+			for(uint8_t column = 0; column < font_size; column++){
+				oled_write_data(pgm_read_byte(&(font4[ch - 32][column])));
+			}
 		}
-	}
-	else{
-		for(uint8_t column = 0; column < font_size; column++){
-			oled_write_data(pgm_read_byte(&(font8[ch - 32][column])));
+		else if(font_size == 5){
+			for(uint8_t column = 0; column < font_size; column++){
+				oled_write_data(pgm_read_byte(&(font5[ch - 32][column])));
+			}
 		}
+		else{
+			for(uint8_t column = 0; column < font_size; column++){
+				oled_write_data(pgm_read_byte(&(font8[ch - 32][column])));
+			}
+		}
+		glob_current_column += font_size;
 	}
 }
 
 void oled_print(const char* message, uint8_t font_size){
-	//implementajon for /n /r /t
+
 	size_t size = strlen(message);
 	
 	printf("\n\r%s", message);
@@ -108,4 +132,12 @@ void oled_print(const char* message, uint8_t font_size){
 	for(uint8_t index = 0; index < size; index++){
 		oled_putchar(message[index], font_size);
 	}
+}
+
+void oled_increment_page_index(){
+	if(glob_current_line == MAX_LINE){
+		oled_goto_line(0);
+		return;
+	}
+	oled_goto_line(glob_current_line + 1);
 }

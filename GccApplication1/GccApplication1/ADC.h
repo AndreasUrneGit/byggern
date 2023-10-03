@@ -8,6 +8,7 @@
 
 #ifndef ADC_H_
 #define ADC_H_
+
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>

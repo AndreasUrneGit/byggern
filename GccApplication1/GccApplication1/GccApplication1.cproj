@@ -147,6 +147,18 @@
     <Compile Include="interrupt.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="joystick.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="joystick.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="menu.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="menu.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="OLED.c">
       <SubType>compile</SubType>
     </Compile>
