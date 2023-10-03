@@ -12,8 +12,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define FROM_NEUTRAL_HIGH 240
-#define FROM_NEUTRAL_LOW 10
+#define FROM_NEUTRAL_HIGH 250
+#define FROM_NEUTRAL_LOW 1
 #define TO_NEUTRAL_HIGH 230
 #define TO_NEUTRAL_LOW 20
 

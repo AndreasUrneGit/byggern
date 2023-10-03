@@ -53,7 +53,7 @@ void menu_print(){
 	oled_print("->", 8);
 }
 
-
+ 
 uint8_t get_menu_length(Menu current_menu){
 	switch (current_menu){
 		case main_menu:
