@@ -13,8 +13,8 @@
 #include "bit_macros.h"
 
 void SPI_init(void);
-void SPI_MasterTransmit(char data);
-char SPI_Read(void);
+void SPI_MasterTransmit(uint8_t data);
+uint8_t SPI_Read(void);
 
 
 #endif /* SPI_H_ */
