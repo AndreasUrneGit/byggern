@@ -18,6 +18,7 @@
 #include "fonts.h"
 #include "joystick.h"
 #include "menu.h"
+#include "SPI.h"
 
 
 int main(void){
@@ -28,23 +29,19 @@ int main(void){
 	oled_init_program();
 	SRAM_test();
 	menu_init();
+	//SPI_init();
 	
 	oled_reset();
 	
 	menu_print();
 	
-	set_bit(DDRB, PB5);
-	set_bit(DDRB, PB7);
-	set_bit(DDRB, PB4);
-	set_bit(SPCR, SPE);
-	set_bit(SPCR, MSTR);
-	set_bit(SPCR, SPR0);
-	
-	clear_bit(PORTB, PB4);
-	SPDR = 'a';
-	loop_until_bit_is_set(SPSR, SPIF);
-	set_bit(PORTB, PB4);
-	
+	/*
+	while(1){
+		printf("Er vi i loopen?");
+		printf(SPI_Read());
+		_delay_ms(100);
+	}
+	*/
 	while(1){
 		ADC_sample(&joystick_x, &joystick_y, &slider_right, &slider_left);
 		if(joystick_handle()){

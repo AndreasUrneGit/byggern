@@ -18,6 +18,6 @@ void SRAM_test(void);
 
 void SRAM_latch_test(void);
 
-void SRAM_init();
+void SRAM_init(void);
 
 #endif

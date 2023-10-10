@@ -135,6 +135,12 @@
     <Compile Include="bit_macros.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="CAN.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="fonts.c">
       <SubType>compile</SubType>
     </Compile>
@@ -166,6 +172,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="OLED.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPI.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPI.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="sram.c">

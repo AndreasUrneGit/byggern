@@ -6,6 +6,8 @@ ADC.c
 
 ATmega162_programdriver.c
 
+CAN.c
+
 fonts.c
 
 interrupt.c
@@ -15,6 +17,8 @@ joystick.c
 menu.c
 
 OLED.c
+
+SPI.c
 
 sram.c
 
