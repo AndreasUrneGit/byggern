@@ -141,6 +141,12 @@
     <Compile Include="CAN.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="CAN_controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="fonts.c">
       <SubType>compile</SubType>
     </Compile>

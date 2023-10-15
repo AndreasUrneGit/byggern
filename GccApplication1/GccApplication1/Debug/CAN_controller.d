@@ -1,4 +1,5 @@
-CAN.d CAN.o: .././CAN.c .././CAN.h .././CAN_controller.h \
+CAN_controller.d CAN_controller.o: .././CAN_controller.c \
+ .././CAN_controller.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -17,8 +18,6 @@ CAN.d CAN.o: .././CAN.c .././CAN.h .././CAN_controller.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  .././mcp2515.h .././bit_macros.h .././SPI.h
-
-.././CAN.h:
 
 .././CAN_controller.h:
 

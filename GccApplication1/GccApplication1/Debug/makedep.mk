@@ -8,6 +8,8 @@ ATmega162_programdriver.c
 
 CAN.c
 
+CAN_controller.c
+
 fonts.c
 
 interrupt.c

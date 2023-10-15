@@ -27,38 +27,29 @@ int main(void){
 	USART_init(MYUBRR);
 	SRAM_init();
 	ADC_init();
-	oled_init_program();
-	menu_init();
-	CAN_Init();
+	//oled_init_program();
+	//menu_init();
+	CAN_init(MODE_LOOPBACK);
 	
+	CAN_msg msg = {69, 6, "Hello"};
+		
+	CAN_msg msg2 = {71, 7, "Oystein"};
 	
-	SRAM_test();
+	CAN_transmit(&msg);
 	
-	oled_reset();
+	CAN_msg received = CAN_receive();
 	
-	menu_print();
+	CAN_transmit(&msg2);
 	
-	CAN_msg msg1;
+	CAN_msg r2 = CAN_receive();
 	
-	CAN_msg msg2;
+	printf("Message received! With length %d and id %d. The message is: %s\r\n", received.length, received.id, received.data);
+	
+	printf("Message received! With length %d and id %d. The message is: %s\r\n", r2.length, r2.id, r2.data);
 	
 	while(1){
-		msg1.id = 0;
-		msg1.length = 3;
-		msg1.data[0] = 1;
-		msg1.data[1] = 2;
-		msg1.data[2] = 3;
-		
-		CAN_Transmit(msg1);
-		
-		_delay_ms(1);
-		
-		msg2 = CAN_Receive();
-		
-		for(int x = 0; x < msg2.length; x++){
-			printf("%2d", msg2.data[x]);
-		}
-		_delay_ms(100);
+
+		_delay_ms(1000);
 	}
 	
 	while(1){

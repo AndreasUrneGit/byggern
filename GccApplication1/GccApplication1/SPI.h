@@ -12,9 +12,9 @@
 #include <avr/io.h>
 #include "bit_macros.h"
 
-void SPI_init(void);
-void SPI_MasterTransmit(uint8_t data);
-uint8_t SPI_Read(void);
+void spi_init(void);
+void spi_write(uint8_t data);
+uint8_t spi_read(void);
 
 
 #endif /* SPI_H_ */
