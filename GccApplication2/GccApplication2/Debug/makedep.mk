@@ -2,27 +2,17 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-Node 1\ADC.c
+can_controller.c
 
-Node 1\ATmega162_programdriver.c
+can_interrupt.c
 
-Node 1\CAN.c
+Device_Startup\startup_sam3xa.c
 
-Node 1\CAN_controller.c
+Device_Startup\system_sam3xa.c
 
-Node 1\fonts.c
+main.c
 
-Node 1\interrupt.c
+printf-stdarg.c
 
-Node 1\joystick.c
-
-Node 1\main.c
-
-Node 1\menu.c
-
-Node 1\OLED.c
-
-Node 1\SPI.c
-
-Node 1\sram.c
+uart.c
 

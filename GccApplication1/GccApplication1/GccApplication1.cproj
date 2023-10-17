@@ -40,6 +40,22 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
+    <avrtoolserialnumber>J41800001458</avrtoolserialnumber>
+    <avrdeviceexpectedsignature>0x1E9404</avrdeviceexpectedsignature>
+    <com_atmel_avrdbg_tool_atmelice>
+      <ToolOptions>
+        <InterfaceProperties>
+          <JtagDbgClock>200000</JtagDbgClock>
+        </InterfaceProperties>
+        <InterfaceName>JTAG</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.atmelice</ToolType>
+      <ToolNumber>J41800001458</ToolNumber>
+      <ToolName>Atmel-ICE</ToolName>
+    </com_atmel_avrdbg_tool_atmelice>
+    <avrtoolinterface>JTAG</avrtoolinterface>
+    <avrtoolinterfaceclock>200000</avrtoolinterfaceclock>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -120,81 +136,84 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ADC.c">
+    <Compile Include="Node 1\ADC.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ADC.h">
+    <Compile Include="Node 1\ADC.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ATmega162_programdriver.c">
+    <Compile Include="Node 1\ATmega162_programdriver.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ATmega162_programdriver.h">
+    <Compile Include="Node 1\ATmega162_programdriver.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="bit_macros.h">
+    <Compile Include="Node 1\bit_macros.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="CAN.c">
+    <Compile Include="Node 1\CAN.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="CAN.h">
+    <Compile Include="Node 1\CAN.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="CAN_controller.c">
+    <Compile Include="Node 1\CAN_controller.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="CAN_controller.h">
+    <Compile Include="Node 1\CAN_controller.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="fonts.c">
+    <Compile Include="Node 1\fonts.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="fonts.h">
+    <Compile Include="Node 1\fonts.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="interrupt.h">
+    <Compile Include="Node 1\interrupt.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="interrupt.c">
+    <Compile Include="Node 1\interrupt.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="joystick.c">
+    <Compile Include="Node 1\joystick.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="joystick.h">
+    <Compile Include="Node 1\joystick.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="mcp2515.h">
+    <Compile Include="Node 1\main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="menu.c">
+    <Compile Include="Node 1\mcp2515.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="menu.h">
+    <Compile Include="Node 1\menu.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="OLED.c">
+    <Compile Include="Node 1\menu.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="OLED.h">
+    <Compile Include="Node 1\OLED.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SPI.c">
+    <Compile Include="Node 1\OLED.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SPI.h">
+    <Compile Include="Node 1\SPI.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="sram.c">
+    <Compile Include="Node 1\SPI.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="sram.h">
+    <Compile Include="Node 1\sram.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main.c">
+    <Compile Include="Node 1\sram.h">
       <SubType>compile</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Node 1" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
