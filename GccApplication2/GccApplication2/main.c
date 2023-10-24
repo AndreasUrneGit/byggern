@@ -11,6 +11,7 @@
 #include "printf-stdarg.h"
 #include "can_controller.h"
 #include "can_interrupt.h"
+#include "PWM.h"
 
 
 int main(void){
@@ -32,8 +33,12 @@ int main(void){
 	set_bit(PIOA->PIO_SODR, 20); 
 	
 	
-	printf("Entering loop");
 	
+	
+	pwm_init();
+	pwm_set_dutycycle(1.5/20);
+	
+	printf("Entering loop");
     /* Replace with your application code */
     while (1){
 		
