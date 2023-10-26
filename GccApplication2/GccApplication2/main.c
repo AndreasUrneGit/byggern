@@ -12,6 +12,7 @@
 #include "can_controller.h"
 #include "can_interrupt.h"
 #include "PWM.h"
+#include "delay.h"
 
 
 int main(void){
@@ -22,6 +23,7 @@ int main(void){
 	uint32_t can_br = (SMP << 24) | (BRP << 16) | (SJW << 12) | ((PROSEG - 1) << 8) | ((PS1 - 1) << 4) | (PS2 - 1);
 	
 	can_init_def_tx_rx_mb(can_br);
+	pwm_init();
 	
     WDT->WDT_MR = WDT_MR_WDDIS;
 	set_bit(PIOA->PIO_PER, 19);
@@ -33,14 +35,15 @@ int main(void){
 	set_bit(PIOA->PIO_SODR, 20); 
 	
 	
-	
-	
-	pwm_init();
-	pwm_set_dutycycle(1.5/20);
-	
 	printf("Entering loop");
-    /* Replace with your application code */
+
+	double dutycycle = 0.0;
     while (1){
-		
+		if(dutycycle > 1.0){
+			dutycycle = 0.0;
+		}
+		pwm_set_dutycycle(dutycycle);
+		dutycycle += 0.01;
+		delay_ms(100);
     }
 }
