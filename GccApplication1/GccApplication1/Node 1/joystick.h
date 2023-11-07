@@ -17,14 +17,14 @@
 #define TO_NEUTRAL_HIGH 230
 #define TO_NEUTRAL_LOW 20
 
-uint8_t slider_right;
-uint8_t slider_left;
+static uint8_t slider_right;
+static uint8_t slider_left;
 
 typedef enum {Neutral = 0, Up, Down, Right, Left} JoystickPosition;
 typedef enum {false, true} bool;
 
-uint8_t joystick_x;
-uint8_t joystick_y;
+static uint8_t joystick_x;
+static uint8_t joystick_y;
 JoystickPosition joystick_position;
 
 bool joystick_handle();

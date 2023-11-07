@@ -47,6 +47,8 @@ int main(void){
 		message.data[2] = slider_right;
 		message.data[3] = slider_left;
 		
+		printf("%u\t%u\t%u\t%u\n\r", joystick_x, joystick_y, slider_right, slider_left);
+		
 		CAN_transmit(&message);
 		
 		_delay_ms(10);

@@ -51,12 +51,22 @@ void CAN0_Handler( void )
 		}
 
 		//if(DEBUG_INTERRUPT)printf("message id: %d\n\r", message.id);
-		//if(DEBUG_INTERRUPT)printf("message data length: %d\n\r", message.data_length);
+		if(DEBUG_INTERRUPT)printf("message data length: %d\n\r", message.data_length);
+		if(DEBUG_INTERRUPT)printf("\n\n\r");
 		for (int i = 0; i < message.data_length; i++)
 		{
-			if(DEBUG_INTERRUPT)printf("%u ", message.data[i]);
+			if(DEBUG_INTERRUPT)printf("%d  ", message.data[i]);
 		}
-		if(DEBUG_INTERRUPT)printf("\r\r");
+		pwm_set_dutycycle((0.8755 + 0.0049 * message.data[0]) / 20.0);
+		
+		if(message.data[1] > 134){
+			set_bit(PIOD->PIO_SODR, 10);
+			dac_write((message.data[1] - 134) * 25);
+		}
+		else{
+			set_bit(PIOD->PIO_CODR, 10);
+			dac_write((134 - message.data[1]) * 25);
+		}
 	}
 	
 	if(can_sr & CAN_SR_MB0)

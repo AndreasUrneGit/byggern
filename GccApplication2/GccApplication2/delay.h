@@ -12,7 +12,7 @@
 #define CPU_FREQ 84000000
 
 void delay_ms(int ms){
-	for(int x = 0; x < ms * CPU_FREQ / 10000; x++){
+	for(int x = 0; x < ms * CPU_FREQ / 1000; x++){
 		asm("nop");
 	}
 }
