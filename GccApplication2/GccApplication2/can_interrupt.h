@@ -14,8 +14,6 @@
 
 #include "PWM.h"
 
-extern uint8_t servo_ref = 0;
-
 void CAN0_Handler       ( void );
 
 

@@ -17,8 +17,6 @@
 #include "motorbox_interface.h"
 #include "PID.h"
 
-uint8_t servo_ref = 0;
-
 int main(void){
     /* Initialize the SAM system */
 	SystemInit();
@@ -48,12 +46,9 @@ int main(void){
 	
 	printf("Entering loop");
 	
-	PID_controller_init(100, 10, 0, 0.02, 4095, -4095);
 	
 	
     while (1){
-		change_motor_speed(PID_controller(servo_ref, get_motor_position()));
-		delay_ms(20);
-		printf("servo_ref: %u\n\r", servo_ref);
+
     }
 }
