@@ -186,9 +186,6 @@
     <Compile Include="dac.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="delay.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Device_Startup\startup_sam3xa.c">
       <SubType>compile</SubType>
     </Compile>
@@ -196,6 +193,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motorbox_interface.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motorbox_interface.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="PID.c">
@@ -214,6 +217,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="PWM.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="uart.c">

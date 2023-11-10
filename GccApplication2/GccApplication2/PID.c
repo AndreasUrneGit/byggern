@@ -8,7 +8,7 @@
 
 static PID_data PID;
 
-void PID_controller_init(float k_p, float k_i, float k_d, float period, float max_output){
+void PID_controller_init(float k_p, float k_i, float k_d, float period, float max_output, float min_output){
 	PID.k_p =k_p;
 	PID.k_i =k_i;
 	PID.k_d =k_d;
@@ -17,7 +17,7 @@ void PID_controller_init(float k_p, float k_i, float k_d, float period, float ma
 	
 	PID.period = period;
 	PID.max_output = max_output;
-	
+	PID.min_output = min_output;
 	
 }
 

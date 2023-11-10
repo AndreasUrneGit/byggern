@@ -14,23 +14,28 @@
 #include "PWM.h"
 #include "dac.h"
 #include "adc.h"
-#include "delay.h"
+#include "motorbox_interface.h"
+#include "PID.h"
 
+uint8_t servo_ref = 0;
 
 int main(void){
     /* Initialize the SAM system */
 	SystemInit();
+	// disable watchdog
+	WDT->WDT_MR = WDT_MR_WDDIS;
+	
+	
 	configure_uart();
 	
 	uint32_t can_br = (SMP << 24) | (BRP << 16) | (SJW << 12) | ((PROSEG - 1) << 8) | ((PS1 - 1) << 4) | (PS2 - 1);
 	
-	//can_init_def_tx_rx_mb(can_br);
+	can_init_def_tx_rx_mb(can_br);
 	pwm_init();
 	dac_init();
 	adc_init();
+	motor_init();
 	
-	// disable watchdog
-    WDT->WDT_MR = WDT_MR_WDDIS;
 	
 	set_bit(PIOA->PIO_PER, 19);
 	set_bit(PIOA->PIO_PER, 20);
@@ -38,19 +43,17 @@ int main(void){
 	set_bit(PIOA->PIO_OER, 20);
 	
 	set_bit(PIOA->PIO_SODR, 19);
-	set_bit(PIOA->PIO_SODR, 20); 
+	set_bit(PIOA->PIO_SODR, 20);
 	
 	
 	printf("Entering loop");
 	
-	set_bit(PIOD->PIO_PER, 9);
-	set_bit(PIOD->PIO_OER, 9);
-	set_bit(PIOD->PIO_SODR, 9);
+	PID_controller_init(100, 10, 0, 0.02, 4095, -4095);
 	
-	set_bit(PIOD->PIO_PER, 10);
-	set_bit(PIOD->PIO_OER, 10);
 	
     while (1){
-		printf("ADC: %u\n\r", adc_read());
+		change_motor_speed(PID_controller(servo_ref, get_motor_position()));
+		delay_ms(20);
+		printf("servo_ref: %u\n\r", servo_ref);
     }
 }

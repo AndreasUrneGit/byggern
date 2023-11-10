@@ -17,7 +17,7 @@
 
 #include "can_controller.h"
 
-#define DEBUG_INTERRUPT 1
+#define DEBUG_INTERRUPT 0
 
 /**
  * \brief CAN0 Interrupt handler for RX, TX and bus error interrupts
@@ -57,16 +57,7 @@ void CAN0_Handler( void )
 		{
 			if(DEBUG_INTERRUPT)printf("%d  ", message.data[i]);
 		}
-		pwm_set_dutycycle((0.8755 + 0.0049 * message.data[0]) / 20.0);
-		
-		if(message.data[1] > 134){
-			set_bit(PIOD->PIO_SODR, 10);
-			dac_write((message.data[1] - 134) * 25);
-		}
-		else{
-			set_bit(PIOD->PIO_CODR, 10);
-			dac_write((134 - message.data[1]) * 25);
-		}
+		servo_ref = message.data[0];
 	}
 	
 	if(can_sr & CAN_SR_MB0)

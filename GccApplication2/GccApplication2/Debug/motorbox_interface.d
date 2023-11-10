@@ -1,6 +1,5 @@
-main.d main.o: .././main.c \
- C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam.h \
- C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam3x8e.h \
+motorbox_interface.d motorbox_interface.o: .././motorbox_interface.c \
+ .././motorbox_interface.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_default_types.h \
@@ -8,6 +7,8 @@ main.d main.o: .././main.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_newlib_version.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_intsup.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_stdint.h \
+ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam.h \
+ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam3x8e.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include/core_cm3.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include/cmsis_version.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include/cmsis_compiler.h \
@@ -81,14 +82,9 @@ main.d main.o: .././main.c \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/instance/rtc.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/instance/gpbr.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/pio/sam3x8e.h \
- .././bit_macros.h .././printf-stdarg.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdarg.h \
- .././uart.h .././can_controller.h .././can_interrupt.h .././PWM.h \
- .././dac.h .././adc.h .././motorbox_interface.h .././timer.h .././PID.h
+ .././dac.h .././bit_macros.h .././timer.h
 
-C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam.h:
-
-C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam3x8e.h:
+.././motorbox_interface.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h:
 
@@ -103,6 +99,10 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_intsup.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_stdint.h:
+
+C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam.h:
+
+C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam3x8e.h:
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include/core_cm3.h:
 
@@ -250,26 +250,8 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/i
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/pio/sam3x8e.h:
 
-.././bit_macros.h:
-
-.././printf-stdarg.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdarg.h:
-
-.././uart.h:
-
-.././can_controller.h:
-
-.././can_interrupt.h:
-
-.././PWM.h:
-
 .././dac.h:
 
-.././adc.h:
-
-.././motorbox_interface.h:
+.././bit_macros.h:
 
 .././timer.h:
-
-.././PID.h:

@@ -16,11 +16,15 @@ Device_Startup\system_sam3xa.c
 
 main.c
 
+motorbox_interface.c
+
 PID.c
 
 printf-stdarg.c
 
 PWM.c
+
+timer.c
 
 uart.c
 
