@@ -10,6 +10,7 @@
 #define PID_H_
 
 #include "stdint.h"
+#include "printf-stdarg.h"
 
 typedef struct {
 	float k_p;
@@ -24,7 +25,7 @@ typedef struct {
 	
 	void PID_controller_init(float k_p, float k_i, float k_d, float period, float max_output, float min_output);
 	void PID_controller_reset_error();
-	int PID_controller(float referance, float current_value);
+	int PID_controller(uint16_t current_value, uint16_t reference);
 
 
 

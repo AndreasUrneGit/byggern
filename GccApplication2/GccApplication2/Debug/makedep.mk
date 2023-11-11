@@ -24,6 +24,8 @@ printf-stdarg.c
 
 PWM.c
 
+tc_interrupt.c
+
 timer.c
 
 uart.c

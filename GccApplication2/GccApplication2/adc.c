@@ -7,6 +7,8 @@
 
 #include "adc.h"
 
+IR_sensor IR;
+
 void adc_init(){
 	ADC->ADC_MR = ADC_MR_FREERUN;
 	ADC->ADC_CHER = ADC_CHDR_CH0;

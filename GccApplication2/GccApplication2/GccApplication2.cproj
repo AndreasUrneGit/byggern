@@ -219,6 +219,12 @@
     <Compile Include="PWM.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="tc_interrupt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tc_interrupt.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="timer.c">
       <SubType>compile</SubType>
     </Compile>

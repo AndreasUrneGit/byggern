@@ -13,6 +13,12 @@
 #define CAN_INTERRUPT_H_
 
 #include "PWM.h"
+#include <stdio.h>
+#include "sam.h"
+#include "printf-stdarg.h"
+#include "can_controller.h"
+#include "motorbox_interface.h"
+
 
 void CAN0_Handler       ( void );
 

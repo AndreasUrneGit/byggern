@@ -1,0 +1,85 @@
+/*
+ * tc_interrupt.c
+ *
+ * Created: 11.11.2023 10:51:07
+ *  Author: oystebw
+ */ 
+
+#include "tc_interrupt.h"
+
+#define DEBUG_TC0_INTERRUPT 0
+#define DEBUG_TC1_INTERRUPT 1
+#define IRQ_TC0_PRIORITY 2
+extern uint8_t servo_reference;
+extern IR_sensor IR;
+
+void init_TCn( uint8_t channel, float period_s ){
+	
+	//riktig klokkesyklus 84 MHz -> satt periode i s
+	//WAVSEL = 10, teller opp til RC og setter interupt, resets når den kommer til RC
+	TC0->TC_CHANNEL[channel].TC_CMR |= TC_CMR_WAVSEL_UP_RC | TC_CMR_WAVE;
+	
+	//setter riktig periode i RA registeret
+	TC0->TC_WPMR = TC_WPMR_WPKEY_PASSWD;
+	TC0->TC_CHANNEL[channel].TC_RC = 42000000 * period_s;
+	TC0->TC_WPMR = TC_WPMR_WPKEY_PASSWD | 1;
+	TC0->TC_CHANNEL[channel].TC_IER = TC_IER_CPCS; 
+	TC0->TC_CHANNEL[channel].TC_IDR = ~TC_IDR_CPCS;
+	
+	
+	
+	PMC->PMC_PCR = (PMC_PCR_EN) | (27 + channel); //enable pin
+	PMC->PMC_PCER0 |= (1 << (27 + channel)); //aktivere periferals
+	while (!(PMC->PMC_PCSR0 & (1 << 27 + channel))) {
+		
+	}
+	//enable clock
+	TC0->TC_CHANNEL[channel].TC_CCR = TC_CCR_SWTRG | TC_CCR_CLKEN;
+	
+	NVIC_EnableIRQ(TC0_IRQn + channel);
+	NVIC_SetPriority(TC0_IRQn, IRQ_TC0_PRIORITY - channel);
+	
+}
+
+void TC0_Handler       ( void ){
+	//cli();
+	//noen mikrosekund mistes i get_motor_position() pga delay (40 us + linjer)
+	uint16_t motor_position = (uint16_t)get_motor_position();
+	change_motor_speed(PID_controller(motor_position, servo_reference));
+	
+	if (DEBUG_TC0_INTERRUPT){
+		printf("Encoder value: %u\n\r", motor_position);
+		printf("Servo ref: %u\n\r", 255 - servo_reference);
+	}
+	
+	TC0->TC_CHANNEL[0].TC_SR;
+	NVIC_ClearPendingIRQ(ID_TC0);
+	//reset interrupt
+	//sei();
+}
+
+void TC1_Handler       ( void ){
+	
+	IR.prev_val = IR.current_val;
+	IR.current_val = adc_read();
+	
+	if (0){
+		printf("Current value: %u \n\r", IR.current_val);
+		printf("Previous value: %u \n\r", IR.prev_val);
+	}
+	
+	if (IR.prev_val > 2000 && IR.current_val < 2000){
+		//send mål til node 1
+		//can_send(CAN_MESSAGE* can_msg, uint8_t mailbox_id);
+		
+		if (DEBUG_TC1_INTERRUPT){
+			printf("GOAL \n\r");
+		}
+	}
+
+	
+	TC0->TC_CHANNEL[1].TC_SR;
+	NVIC_ClearPendingIRQ(ID_TC1);
+	//reset interrupt
+	//sei();
+}

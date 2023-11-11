@@ -5,8 +5,10 @@
  *  Author: oystebw
  */ 
 
+#define DEBUG_MOTOR 0
 #include "motorbox_interface.h"
 
+uint16_t MAX_ENCODER_VALUE;
 
 void motor_init(){
 	// PD9 is the enable motor pin
@@ -31,17 +33,6 @@ void motor_init(){
 	set_bit(PIOA->PIO_OER, 3);
 	set_bit(PIOA->PIO_SODR, 3);
 	
-	// place motor to the right and reset encoder
-	enable_motor();
-	change_motor_direction(RIGHT);
-	change_motor_speed(1000);
-	delay_ms(2000);
-	disable_motor();
-	change_motor_speed(0);
-	set_bit(PIOD->PIO_CODR, 1);
-	delay_us(20);
-	set_bit(PIOD->PIO_SODR, 1);
-	
 	// PD2 is the encoder select low byte pin
 	set_bit(PIOD->PIO_PER, 2);
 	set_bit(PIOD->PIO_OER, 2);
@@ -53,6 +44,32 @@ void motor_init(){
 	// enable clock and power to PORT C
 	PMC->PMC_PCR = PMC_PCR_EN | ID_PIOC;
 	PMC->PMC_PCER0 |= (0b1 << ID_PIOC);
+	
+	// place motor to the right and reset encoder
+	enable_motor();
+	change_motor_speed(-3000);
+	delay_ms(2000);
+	disable_motor();
+	change_motor_speed(0);
+	set_bit(PIOD->PIO_CODR, 1);
+	delay_us(20);
+	set_bit(PIOD->PIO_SODR, 1);
+	
+	if (DEBUG_MOTOR){
+		printf("Motor position at reset: %u \n\r", get_motor_position());
+	}
+	
+	enable_motor();
+	change_motor_speed(3000);
+	delay_ms(2000);
+	disable_motor();
+	change_motor_speed(0);
+	
+	MAX_ENCODER_VALUE = get_motor_position();
+	
+	if (DEBUG_MOTOR){
+		printf("Max encorder value: %u \n\r", MAX_ENCODER_VALUE);
+	}
 }
 
 void enable_motor(){
@@ -73,12 +90,21 @@ void change_motor_direction(MOTOR_DIRECTION direction){
 }
 
 void change_motor_speed(int16_t speed){
+	
+	/*
+	if(abs(speed) < 500){
+		disable_motor();
+		return;
+	}
+	*/
+
+	enable_motor();
 	if(speed < 0){
-		change_motor_direction(LEFT);
+		change_motor_direction(RIGHT);
 		dac_write(speed * -1);
 	}
 	else{
-		change_motor_direction(RIGHT);
+		change_motor_direction(LEFT);
 		dac_write(speed);
 	}
 }
@@ -92,7 +118,7 @@ int16_t get_motor_position(){
 	// encoder select low pin set low to output high byte
 	set_bit(PIOD->PIO_CODR, 2);
 	
-	delay_us(20);
+	delay_us(60);
 	
 	// high byte from encoder
 	result |= (MJ2_read() << 8);
@@ -100,12 +126,16 @@ int16_t get_motor_position(){
 	// encoder select low pin set high to output low byte
 	set_bit(PIOD->PIO_SODR, 2);
 	
-	delay_us(20);
+	delay_us(60);
 	
 	result |= MJ2_read();
 	
 	// encoder OE high (inactive)
 	set_bit(PIOD->PIO_SODR, 0);
+	
+	if(result > 10000 || result < 0){
+		result = 0;
+	}
 	
 	return result;
 }
@@ -122,4 +152,8 @@ void solenoid_shoot(){
 	set_bit(PIOA->PIO_CODR, 3);
 	delay_ms(25);
 	set_bit(PIOA->PIO_SODR, 3);
+}
+
+void change_head_angle(uint8_t reference){
+	pwm_set_dutycycle((0.0049 * reference + 0.8755) / 20.0);
 }

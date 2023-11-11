@@ -10,14 +10,9 @@
 
 #include "can_interrupt.h"
 
-#include <stdio.h>
-#include "sam.h"
-
-#include "printf-stdarg.h"
-
-#include "can_controller.h"
-
 #define DEBUG_INTERRUPT 0
+
+extern uint8_t servo_reference;
 
 /**
  * \brief CAN0 Interrupt handler for RX, TX and bus error interrupts
@@ -28,6 +23,7 @@
  */
 void CAN0_Handler( void )
 {
+	//cli();
 	//if(DEBUG_INTERRUPT)printf("CAN0 interrupt\n\r");
 	char can_sr = CAN0->CAN_SR; 
 	
@@ -57,7 +53,9 @@ void CAN0_Handler( void )
 		{
 			if(DEBUG_INTERRUPT)printf("%d  ", message.data[i]);
 		}
-		servo_ref = message.data[0];
+		servo_reference = message.data[0];
+		
+		change_head_angle(message.data[2]);
 	}
 	
 	if(can_sr & CAN_SR_MB0)
@@ -81,5 +79,5 @@ void CAN0_Handler( void )
 	}
 	
 	NVIC_ClearPendingIRQ(ID_CAN0);
-	//sei();*/
+	//sei();
 }
