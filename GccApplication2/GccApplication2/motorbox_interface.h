@@ -26,6 +26,7 @@
 typedef enum {LEFT, RIGHT} MOTOR_DIRECTION;
 
 void motor_init();
+void calibrate_motor_encoder();
 
 void enable_motor();
 void disable_motor();

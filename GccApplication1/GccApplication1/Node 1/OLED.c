@@ -39,6 +39,8 @@ void oled_init_program()
 	oled_write_command(0xa4); //out follows RAM content
 	oled_write_command(0xa6); //set normal display
 	oled_write_command(0xaf); // display on
+	
+	oled_reset();
 }
 
 void oled_goto_line(uint8_t line){

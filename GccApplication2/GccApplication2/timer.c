@@ -9,6 +9,8 @@
 
 volatile uint32_t wait = 0;
 
+//Denne timermodulen er inspirert av https://github.com/henrikhestnes/TTK4155-Byggern/blob/master/node2/timer.c
+
 static void SysTick_init_us(uint16_t period){
 	SysTick->LOAD = (int)((period * 84) & SysTick_LOAD_RELOAD_Msk) - 1;
 	

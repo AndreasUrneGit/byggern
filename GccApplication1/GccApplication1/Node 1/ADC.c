@@ -15,12 +15,13 @@ void ADC_init(){
 	
 }
 
-void ADC_sample(uint8_t* joystick_x, uint8_t* joystick_y, uint8_t* slider_right, uint8_t* slider_left){
+void ADC_sample(GAMEBOARD_VALUES* values){
 	volatile char* adc_addr = (char*)0x1400;
-	*joystick_x = adc_addr[0];
-	*joystick_y = adc_addr[0];
-	*slider_right = adc_addr[0];
-	*slider_left = adc_addr[0];
+	
+	values->joystick_x = adc_addr[0];
+	values->button_left = adc_addr[0];
+	values->slider_right = adc_addr[0];
+	values->button_right = adc_addr[0];
 	
 	adc_addr[0] = 0;
 }

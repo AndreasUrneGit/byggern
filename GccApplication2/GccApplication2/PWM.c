@@ -18,15 +18,10 @@ void pwm_init(){
 		
 	}
 	
-	//PIOC->PIO_PER |= PIO_PC19;
-	
-	//PIOC->PIO_OER |= PIO_PC19;
-	
+
 	PIOC->PIO_PDR |= PIO_PDR_P19; //Disable PIO pin 19 == PIN44
 	
 	PIOC->PIO_ABSR |= PIO_ABSR_P19; //AB Peripheral select B
-	
-	//MCK = 84 000 000
 	
 	//PWM_CLK set clock, clock prescaler and divider 2mhz
 	PWM->PWM_CLK = PWM_CLK_DIVA(42); //PWM CLK at 2MHz

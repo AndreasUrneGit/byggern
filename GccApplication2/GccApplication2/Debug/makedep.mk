@@ -14,6 +14,8 @@ Device_Startup\startup_sam3xa.c
 
 Device_Startup\system_sam3xa.c
 
+fsm.c
+
 main.c
 
 motorbox_interface.c

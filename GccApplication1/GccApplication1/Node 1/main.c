@@ -19,7 +19,15 @@
 #include "joystick.h"
 #include "menu.h"
 #include "CAN.h"
+#include "game.h"
 
+Game game = {0,0,5};
+	
+extern JoystickPosition joystick_position;
+
+extern GAMEBOARD_VALUES Gameboard_values;
+
+extern CAN_msg send_message;
 
 int main(void){
     // enable global interrupt flags
@@ -27,30 +35,38 @@ int main(void){
 	USART_init(MYUBRR);
 	SRAM_init();
 	ADC_init();
-	//oled_init_program();
-	//menu_init();
+	oled_init_program();
+	menu_init();
 	CAN_init(MODE_NORMAL);
-	
-	CAN_msg message = {1, 4, "Hello!"};
+	menu_print();
 	
 	while(1){
-		ADC_sample(&joystick_x, &joystick_y, &slider_right, &slider_left);
-		/*
-		if(joystick_handle()){
-			menu_navigate(joystick_position, glob_current_menu);
+		
+		if (game.playing){
+			game_playing();
 			menu_print();
 		}
-		*/
 		
-		message.data[0] = joystick_x;
-		message.data[1] = joystick_y;
-		message.data[2] = slider_right;
-		message.data[3] = slider_left;
+		else{
+			ADC_sample(&Gameboard_values);
+			if(joystick_handle()){
+				menu_navigate(joystick_position, glob_current_menu);
+				menu_print();
+			}
+			
+			if (Gameboard_values.button_right > 200 && glob_current_menu_item == start_game){
+				game.playing = 1;
+				ADC_sample(&Gameboard_values);
+			}
+			if (Gameboard_values.button_right > 200 && glob_current_menu_item == calibrate){
+				send_message.data[5] = 1;
+				CAN_transmit(&send_message);
+				send_message.data[5] = 0;
+				_delay_ms(1000);
+				ADC_sample(&Gameboard_values);
+			}
+		}
 		
-		//printf("%u\t%u\t%u\t%u\n\r", joystick_x, joystick_y, slider_right, slider_left);
-		
-		CAN_transmit(&message);
-		
-		_delay_ms(1);
+		_delay_ms(20);
 	}
 }

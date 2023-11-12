@@ -14,6 +14,7 @@
 
 #include "printf-stdarg.h"
 
+#define IRQ_CAN0_priority 1
 
 /**
  * \brief Initialize can bus with predefined number of rx and tx mailboxes, 
@@ -47,7 +48,7 @@ uint8_t can_init(uint32_t can_br, uint8_t num_tx_mb, uint8_t num_rx_mb)
 	
 	//Make sure num_rx_mb and num_tx_mb is valid
 	if(num_rx_mb > 8 | num_tx_mb > 8 | num_rx_mb + num_tx_mb > 8)
-	{
+	{	
 		return 1; //Too many mailboxes is configured
 	}
 
@@ -111,6 +112,7 @@ uint8_t can_init(uint32_t can_br, uint8_t num_tx_mb, uint8_t num_rx_mb)
 
 	//Enable interrupt in NVIC 
 	NVIC_EnableIRQ(ID_CAN0);
+	NVIC_SetPriority(CAN0_IRQn, IRQ_CAN0_priority);
 
 	//enable CAN
 	CAN0->CAN_MR |= CAN_MR_CANEN;
@@ -131,6 +133,7 @@ uint8_t can_send(CAN_MESSAGE* can_msg, uint8_t tx_mb_id)
 {
 	//Check that mailbox is ready
 	if(CAN0->CAN_MB[tx_mb_id].CAN_MSR & CAN_MSR_MRDY)
+	//if(1)
 	{
 		//Set message ID and use CAN 2.0B protocol
 		CAN0->CAN_MB[tx_mb_id].CAN_MID = CAN_MID_MIDvA(can_msg->id) | CAN_MID_MIDE ;
@@ -146,11 +149,14 @@ uint8_t can_send(CAN_MESSAGE* can_msg, uint8_t tx_mb_id)
 		
 		//Set message length and mailbox ready to send
 		CAN0->CAN_MB[tx_mb_id].CAN_MCR = (can_msg->data_length << CAN_MCR_MDLC_Pos) | CAN_MCR_MTCR;
+		
+		//printf("Message sent! \n\r");
 		return 0;
 	}
 	
 	else //Mailbox busy
 	{
+		//printf("Message not sent! \n\r");
 		return 1;
 	}
 	

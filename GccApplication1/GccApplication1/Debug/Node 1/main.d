@@ -17,15 +17,15 @@ Node 1/main.d Node 1/main.o: ../Node\ 1/main.c \
  ../Node\ 1/sram.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
- ../Node\ 1/ADC.h ../Node\ 1/interrupt.h \
+ ../Node\ 1/ADC.h ../Node\ 1/joystick.h ../Node\ 1/interrupt.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  ../Node\ 1/OLED.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
- ../Node\ 1/fonts.h ../Node\ 1/joystick.h ../Node\ 1/menu.h \
- ../Node\ 1/CAN.h ../Node\ 1/CAN_controller.h \
+ ../Node\ 1/fonts.h ../Node\ 1/menu.h ../Node\ 1/CAN.h \
+ ../Node\ 1/CAN_controller.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
- ../Node\ 1/mcp2515.h ../Node\ 1/SPI.h
+ ../Node\ 1/mcp2515.h ../Node\ 1/SPI.h ../Node\ 1/game.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -67,6 +67,8 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 
 ../Node\ 1/ADC.h:
 
+../Node\ 1/joystick.h:
+
 ../Node\ 1/interrupt.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
@@ -76,8 +78,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h:
 
 ../Node\ 1/fonts.h:
-
-../Node\ 1/joystick.h:
 
 ../Node\ 1/menu.h:
 
@@ -92,3 +92,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 ../Node\ 1/mcp2515.h:
 
 ../Node\ 1/SPI.h:
+
+../Node\ 1/game.h:

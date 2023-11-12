@@ -39,10 +39,11 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../Node\ 1/ADC.c \
-../Node\ 1/ATmega162_programdriver.c \
+../Node\ 1/uart.c \
 ../Node\ 1/CAN.c \
 ../Node\ 1/CAN_controller.c \
 ../Node\ 1/fonts.c \
+../Node\ 1/game.c \
 ../Node\ 1/interrupt.c \
 ../Node\ 1/joystick.c \
 ../Node\ 1/main.c \
@@ -60,10 +61,11 @@ ASM_SRCS +=
 
 OBJS +=  \
 Node\ 1/ADC.o \
-Node\ 1/ATmega162_programdriver.o \
+Node\ 1/uart.o \
 Node\ 1/CAN.o \
 Node\ 1/CAN_controller.o \
 Node\ 1/fonts.o \
+Node\ 1/game.o \
 Node\ 1/interrupt.o \
 Node\ 1/joystick.o \
 Node\ 1/main.o \
@@ -74,10 +76,11 @@ Node\ 1/sram.o
 
 OBJS_AS_ARGS +=  \
 "Node 1/ADC.o" \
-"Node 1/ATmega162_programdriver.o" \
+"Node 1/uart.o" \
 "Node 1/CAN.o" \
 "Node 1/CAN_controller.o" \
 "Node 1/fonts.o" \
+"Node 1/game.o" \
 "Node 1/interrupt.o" \
 "Node 1/joystick.o" \
 "Node 1/main.o" \
@@ -88,10 +91,11 @@ OBJS_AS_ARGS +=  \
 
 C_DEPS +=  \
 Node\ 1/ADC.d \
-Node\ 1/ATmega162_programdriver.d \
+Node\ 1/uart.d \
 Node\ 1/CAN.d \
 Node\ 1/CAN_controller.d \
 Node\ 1/fonts.d \
+Node\ 1/game.d \
 Node\ 1/interrupt.d \
 Node\ 1/joystick.d \
 Node\ 1/main.d \
@@ -102,10 +106,11 @@ Node\ 1/sram.d
 
 C_DEPS_AS_ARGS +=  \
 "Node 1/ADC.d" \
-"Node 1/ATmega162_programdriver.d" \
+"Node 1/uart.d" \
 "Node 1/CAN.d" \
 "Node 1/CAN_controller.d" \
 "Node 1/fonts.d" \
+"Node 1/game.d" \
 "Node 1/interrupt.d" \
 "Node 1/joystick.d" \
 "Node 1/main.d" \
@@ -135,7 +140,7 @@ Node\ 1/ADC.o: ../Node\ 1/ADC.c
 	@echo Finished building: $<
 	
 
-Node\ 1/ATmega162_programdriver.o: ../Node\ 1/ATmega162_programdriver.c
+Node\ 1/uart.o: ../Node\ 1/uart.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega162" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -157,6 +162,13 @@ Node\ 1/CAN_controller.o: ../Node\ 1/CAN_controller.c
 	
 
 Node\ 1/fonts.o: ../Node\ 1/fonts.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega162" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+Node\ 1/game.o: ../Node\ 1/game.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega162" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

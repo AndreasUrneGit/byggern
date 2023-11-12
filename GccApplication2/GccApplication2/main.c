@@ -29,8 +29,12 @@
 #include "PID.h"
 #include "tc_interrupt.h"
 #include "timer.h"
+#include <stdint.h>
+#include "fsm.h"
 
 extern uint8_t servo_reference;
+
+uint8_t playing = 1;
 
 void test_light ( void ){
 	set_bit(PIOA->PIO_PER, 20);
@@ -64,6 +68,14 @@ int main(void){
 	init_TCn( IR_TC_CHANNEL, IR_PERIOD );
 
     while (1){
+		
+		if(playing){
+			fsm_playing();
+		}
+		else{
+			fsm_waiting();
+		}
+		
 		
 		
 		if(DEBUG){

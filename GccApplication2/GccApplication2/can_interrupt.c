@@ -13,6 +13,7 @@
 #define DEBUG_INTERRUPT 0
 
 extern uint8_t servo_reference;
+extern uint8_t playing;
 
 /**
  * \brief CAN0 Interrupt handler for RX, TX and bus error interrupts
@@ -53,12 +54,20 @@ void CAN0_Handler( void )
 		{
 			if(DEBUG_INTERRUPT)printf("%d  ", message.data[i]);
 		}
-		servo_reference = message.data[0];
-		change_head_angle(message.data[2]);
 		
+		if(message.data[5]){
+			calibrate_motor_encoder();
+		}
 		
-		if(message.data[3] > 100){
-			solenoid_shoot();
+		playing = message.data[4];
+		
+		if(playing){
+			servo_reference = message.data[0];
+			change_head_angle(message.data[2]);
+			
+			if(message.data[3] > 100){
+				solenoid_shoot();
+			}
 		}
 		
 	}

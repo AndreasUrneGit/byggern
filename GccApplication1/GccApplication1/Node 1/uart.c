@@ -4,7 +4,7 @@
  * Created: 29.08.2023 16:19:57
  *  Author: andreurn
  */ 
-#include "ATmega162_programdriver.h"
+#include "uart.h"
 
 void USART_init(unsigned int ubrr){
 	// Set baud rate

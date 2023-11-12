@@ -7,47 +7,32 @@
 
 #include "joystick.h"
 
+JoystickPosition joystick_position = Neutral;
+
+GAMEBOARD_VALUES Gameboard_values;
+
 bool joystick_handle(){
+	//printf("%u \n\r", Gameboard_values.joystick_x);
 	switch(joystick_position){
 		case Neutral:
-			if(joystick_y > FROM_NEUTRAL_HIGH){
-				joystick_position = Up;
-				return true;
-			}
-			if(joystick_y < FROM_NEUTRAL_LOW){
-				joystick_position = Down;
-				return true;
-			}
-			if(joystick_x > FROM_NEUTRAL_HIGH){
+			if(Gameboard_values.joystick_x > FROM_NEUTRAL_HIGH){
 				joystick_position = Right;
 				return true;
 			}
-			if(joystick_x < FROM_NEUTRAL_LOW){
+			if(Gameboard_values.joystick_x < FROM_NEUTRAL_LOW){
 				joystick_position = Left;
 				return true;
 			}
 			return false;
 		
-		case Up:
-			if(joystick_y < TO_NEUTRAL_HIGH){
-				joystick_position = Neutral;
-			}
-			return false;
-			
-		case Down:
-			if(joystick_y > TO_NEUTRAL_LOW){
-				joystick_position = Neutral;
-			}
-			return false;
-		
 		case Right:
-			if(joystick_x < TO_NEUTRAL_HIGH){
+			if(Gameboard_values.joystick_x < TO_NEUTRAL_HIGH){
 				joystick_position = Neutral;
 			}
 			return false;
 		
 		case Left:
-			if(joystick_x > TO_NEUTRAL_LOW){
+			if(Gameboard_values.joystick_x > TO_NEUTRAL_LOW){
 				joystick_position = Neutral;
 			}
 			return false;
@@ -57,12 +42,6 @@ bool joystick_handle(){
 
 void joystick_print(){
 	switch(joystick_position){
-		case Up:
-			printf("\n\rOpp");
-			break;
-		case Down:
-			printf("\n\rNed");
-			break;
 		case Right:
 			printf("\n\rHøyre");
 			break;

@@ -25,6 +25,9 @@ void mcp_2515_init(uint8_t mode){
 	mcp_2515_write(MCP_CNF1, SJW4 | (BRP-1));
 	
 	_delay_ms(100);
+	
+	//enables reading of a can bit flag for IR sensor
+	mcp_2515_bit_modify(MCP_CANINTE, 1, 1);
 
 	printf("%x\r\n", mcp_2515_read(MCP_CNF1));
 	printf("%x\r\n", mcp_2515_read(MCP_CNF2));

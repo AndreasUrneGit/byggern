@@ -6,6 +6,8 @@
  */ 
 
 
+//Denne timermodulen er inspirert av https://github.com/henrikhestnes/TTK4155-Byggern/blob/master/node2/timer.c
+
 #ifndef TIMER_H_
 #define TIMER_H_
 

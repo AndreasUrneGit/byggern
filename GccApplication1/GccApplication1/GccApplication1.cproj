@@ -142,10 +142,10 @@
     <Compile Include="Node 1\ADC.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Node 1\ATmega162_programdriver.c">
+    <Compile Include="Node 1\uart.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Node 1\ATmega162_programdriver.h">
+    <Compile Include="Node 1\uart.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Node 1\bit_macros.h">
@@ -167,6 +167,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Node 1\fonts.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Node 1\game.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Node 1\game.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Node 1\interrupt.c">

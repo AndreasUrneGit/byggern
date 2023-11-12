@@ -11,9 +11,15 @@
 #define DEBUG_TC1_INTERRUPT 1
 #define DEBUG_TC2_INTERRUPT 1
 #define IRQ_TC0_PRIORITY 2
+#define CAN_MSG_ID 2
+#define CAN_MSG_DATA_LENGTH 1
+#define CAN_MSG_DATA 1
+#define CAN_NODE1_MAIL_ID 0
 extern uint8_t servo_reference;
 extern IR_sensor IR;
 extern uint8_t solenoid_out;
+
+const CAN_MESSAGE goal = {CAN_MSG_ID, CAN_MSG_DATA_LENGTH, 0b00000001};
 
 void init_TCn( uint8_t channel, float period_s ){
 	
@@ -62,14 +68,9 @@ void TC1_Handler       ( void ){
 	IR.prev_val = IR.current_val;
 	IR.current_val = adc_read();
 	
-	if (0){
-		printf("Current value: %u \n\r", IR.current_val);
-		printf("Previous value: %u \n\r", IR.prev_val);
-	}
-	
-	if (IR.prev_val > 2000 && IR.current_val < 2000){
-		//send mål til node 1
-		//can_send(CAN_MESSAGE* can_msg, uint8_t mailbox_id);
+	if (IR.prev_val > 1800 && IR.current_val < 1800){
+		
+		can_send(&goal, CAN_NODE1_MAIL_ID);
 		
 		if (DEBUG_TC1_INTERRUPT){
 			printf("GOAL \n\r");

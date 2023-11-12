@@ -47,27 +47,8 @@ void motor_init(){
 	PMC->PMC_PCR = PMC_PCR_EN | ID_PIOC;
 	PMC->PMC_PCER0 |= (0b1 << ID_PIOC);
 	
-	// place motor to the right and reset encoder
-	enable_motor();
-	change_motor_speed(-3000);
-	delay_ms(2000);
-	disable_motor();
-	change_motor_speed(0);
-	set_bit(PIOD->PIO_CODR, 1);
-	delay_us(20);
-	set_bit(PIOD->PIO_SODR, 1);
-	
-	if (DEBUG_MOTOR){
-		printf("Motor position at reset: %u \n\r", get_motor_position());
-	}
-	
-	enable_motor();
-	change_motor_speed(3000);
-	delay_ms(2000);
-	disable_motor();
-	change_motor_speed(0);
-	
-	MAX_ENCODER_VALUE = get_motor_position();
+	// calibrate encoders
+	calibrate_motor_encoder();
 	
 	if (DEBUG_MOTOR){
 		printf("Max encorder value: %u \n\r", MAX_ENCODER_VALUE);
@@ -92,15 +73,7 @@ void change_motor_direction(MOTOR_DIRECTION direction){
 }
 
 void change_motor_speed(int16_t speed){
-	
-	/*
-	if(abs(speed) < 500){
-		disable_motor();
-		return;
-	}
-	*/
 
-	enable_motor();
 	if(speed < 0){
 		change_motor_direction(RIGHT);
 		dac_write(speed * -1);
@@ -160,4 +133,27 @@ void solenoid_shoot(){
 
 void change_head_angle(uint8_t reference){
 	pwm_set_dutycycle((0.0049 * reference + 0.8755) / 20.0);
+}
+
+void calibrate_motor_encoder(){
+	enable_motor();
+	change_motor_speed(-3000);
+	delay_ms(2000);
+	disable_motor();
+	change_motor_speed(0);
+	set_bit(PIOD->PIO_CODR, 1);
+	delay_us(20);
+	set_bit(PIOD->PIO_SODR, 1);
+	
+	if (DEBUG_MOTOR){
+		printf("Motor position at reset: %u \n\r", get_motor_position());
+	}
+	
+	enable_motor();
+	change_motor_speed(3000);
+	delay_ms(2000);
+	disable_motor();
+	change_motor_speed(0);
+	
+	MAX_ENCODER_VALUE = get_motor_position();
 }
