@@ -10,6 +10,8 @@
 
 uint16_t MAX_ENCODER_VALUE;
 
+uint8_t solenoid_out = 0;
+
 void motor_init(){
 	// PD9 is the enable motor pin
 	set_bit(PIOD->PIO_PER, 9);
@@ -149,9 +151,11 @@ char MJ2_read(){
 }
 
 void solenoid_shoot(){
-	set_bit(PIOA->PIO_CODR, 3);
-	delay_ms(25);
-	set_bit(PIOA->PIO_SODR, 3);
+	if(!solenoid_out){
+		set_bit(PIOA->PIO_CODR, 3);
+		solenoid_out = 1;
+		init_TCn(2, 0.02);
+	}
 }
 
 void change_head_angle(uint8_t reference){

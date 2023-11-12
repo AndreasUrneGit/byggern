@@ -10,7 +10,7 @@
 volatile uint32_t wait = 0;
 
 static void SysTick_init_us(uint16_t period){
-	SysTick->LOAD = ((period * 84) & SysTick_LOAD_RELOAD_Msk) - 1;
+	SysTick->LOAD = (int)((period * 84) & SysTick_LOAD_RELOAD_Msk) - 1;
 	
 	SysTick->VAL = 0;
 	
@@ -19,14 +19,12 @@ static void SysTick_init_us(uint16_t period){
 	SysTick->CTRL = (1 << SysTick_CTRL_CLKSOURCE_Pos) & SysTick_CTRL_CLKSOURCE_Msk;
 	SysTick->CTRL |= (1 << SysTick_CTRL_TICKINT_Pos) & SysTick_CTRL_TICKINT_Msk;
 	SysTick->CTRL |= (1 << SysTick_CTRL_ENABLE_Pos) & SysTick_CTRL_ENABLE_Msk;
-	
 }
 
 void delay_ms(uint16_t ms){
 	wait = ms;
 	SysTick_init_us(1000);
 	while(wait){
-		
 	}
 }
 
@@ -39,6 +37,7 @@ void delay_us(uint16_t us){
 }
 
 void SysTick_Handler(){
+	//printf("Systick handler\n\r");
 	if(wait){
 		wait--;
 	}

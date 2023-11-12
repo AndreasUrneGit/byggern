@@ -9,9 +9,11 @@
 
 #define DEBUG_TC0_INTERRUPT 0
 #define DEBUG_TC1_INTERRUPT 1
+#define DEBUG_TC2_INTERRUPT 1
 #define IRQ_TC0_PRIORITY 2
 extern uint8_t servo_reference;
 extern IR_sensor IR;
+extern uint8_t solenoid_out;
 
 void init_TCn( uint8_t channel, float period_s ){
 	
@@ -30,15 +32,14 @@ void init_TCn( uint8_t channel, float period_s ){
 	
 	PMC->PMC_PCR = (PMC_PCR_EN) | (27 + channel); //enable pin
 	PMC->PMC_PCER0 |= (1 << (27 + channel)); //aktivere periferals
-	while (!(PMC->PMC_PCSR0 & (1 << 27 + channel))) {
+	while (!(PMC->PMC_PCSR0 & (1 << (27 + channel)))) {
 		
 	}
 	//enable clock
 	TC0->TC_CHANNEL[channel].TC_CCR = TC_CCR_SWTRG | TC_CCR_CLKEN;
 	
 	NVIC_EnableIRQ(TC0_IRQn + channel);
-	NVIC_SetPriority(TC0_IRQn, IRQ_TC0_PRIORITY - channel);
-	
+	NVIC_SetPriority(TC0_IRQn + channel, IRQ_TC0_PRIORITY - channel);
 }
 
 void TC0_Handler       ( void ){
@@ -54,8 +55,6 @@ void TC0_Handler       ( void ){
 	
 	TC0->TC_CHANNEL[0].TC_SR;
 	NVIC_ClearPendingIRQ(ID_TC0);
-	//reset interrupt
-	//sei();
 }
 
 void TC1_Handler       ( void ){
@@ -80,6 +79,23 @@ void TC1_Handler       ( void ){
 	
 	TC0->TC_CHANNEL[1].TC_SR;
 	NVIC_ClearPendingIRQ(ID_TC1);
-	//reset interrupt
-	//sei();
+}
+
+
+
+void TC2_Handler       ( void ){
+	
+	
+	if (DEBUG_TC2_INTERRUPT){
+			printf("Shot \n\r");
+	}
+	
+	set_bit(PIOA->PIO_SODR, 3);
+	solenoid_out = 0;
+
+	
+	TC0->TC_CHANNEL[2].TC_SR;
+	NVIC_ClearPendingIRQ(ID_TC2);
+	
+	NVIC_DisableIRQ(TC2_IRQn);
 }

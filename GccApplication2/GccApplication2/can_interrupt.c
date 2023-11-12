@@ -54,8 +54,13 @@ void CAN0_Handler( void )
 			if(DEBUG_INTERRUPT)printf("%d  ", message.data[i]);
 		}
 		servo_reference = message.data[0];
-		
 		change_head_angle(message.data[2]);
+		
+		
+		if(message.data[3] > 100){
+			solenoid_shoot();
+		}
+		
 	}
 	
 	if(can_sr & CAN_SR_MB0)

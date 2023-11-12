@@ -19,6 +19,7 @@
 #include "timer.h"
 #include "PWM.h"
 #include "printf-stdarg.h"
+#include "tc_interrupt.h"
 #include <stdlib.h>
 
 

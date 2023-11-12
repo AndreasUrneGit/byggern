@@ -15,12 +15,14 @@
 #include "PID.h"
 #include "adc.h"
 #include "can_controller.h"
+#include "can_interrupt.h"
 
 
 void init_TCn( uint8_t channel, float period_s );
  
 void TC0_Handler       ( void );
 void TC1_Handler       ( void );
+void TC2_Handler       ( void );
 
 
 

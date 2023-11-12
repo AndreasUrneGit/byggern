@@ -14,10 +14,10 @@
 
 #include <stdint.h>
 #include "sam.h"
+#include "printf-stdarg.h"
 
 void delay_ms(uint16_t ms);
 void delay_us(uint16_t us);
-
-
+void SysTick_Handler();
 
 #endif /* TIMER_H_ */

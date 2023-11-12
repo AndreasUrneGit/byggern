@@ -28,6 +28,7 @@
 #include "motorbox_interface.h"
 #include "PID.h"
 #include "tc_interrupt.h"
+#include "timer.h"
 
 extern uint8_t servo_reference;
 
@@ -61,7 +62,7 @@ int main(void){
 	
 	init_TCn( CONTROL_TC_CHANNEL, CONTROL_PERIOD );
 	init_TCn( IR_TC_CHANNEL, IR_PERIOD );
-	
+
     while (1){
 		
 		
@@ -69,7 +70,7 @@ int main(void){
 			change_motor_speed(PID_controller(get_motor_position(), servo_reference));
 			printf("Encoder value: %u\n\r", get_motor_position());
 			printf("Servo ref: %u\n\r", servo_reference);
-			delay_ms(20);		
+			delay_ms(20);
 		}
     }
 }

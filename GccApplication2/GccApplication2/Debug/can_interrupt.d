@@ -107,7 +107,8 @@ can_interrupt.d can_interrupt.o: .././can_interrupt.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\types.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h \
  .././printf-stdarg.h .././uart.h .././can_controller.h \
- .././motorbox_interface.h .././dac.h .././timer.h \
+ .././motorbox_interface.h .././dac.h .././timer.h .././tc_interrupt.h \
+ .././PID.h .././adc.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdlib.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\stdlib.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\alloca.h
@@ -341,6 +342,12 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 .././dac.h:
 
 .././timer.h:
+
+.././tc_interrupt.h:
+
+.././PID.h:
+
+.././adc.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdlib.h:
 

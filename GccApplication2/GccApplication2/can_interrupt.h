@@ -18,6 +18,7 @@
 #include "printf-stdarg.h"
 #include "can_controller.h"
 #include "motorbox_interface.h"
+#include "timer.h"
 
 
 void CAN0_Handler       ( void );
